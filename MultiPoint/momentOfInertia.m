@@ -1,3 +1,4 @@
+%momentOfInertia function takes the network of points and uses the center of mass and the distance from the points to the center of mass to calculate the moment of inertia
 function mOI = momentOfInertia(network)
     mOI = 0;
     cOM = centerOfMass(network);
