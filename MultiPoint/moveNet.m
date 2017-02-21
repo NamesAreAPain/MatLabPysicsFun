@@ -1,13 +1,14 @@
+%function takes the inputs of network and time to find the the position and velocity 
 function network = moveNet(network,time)
-    [NFx,NFy] = netnetForce(network);
-    accx = NFx/network.mass;
-    accy = NFy/network.mass;
-    Vx = network.velo(1) + accx*time;
-    Delx = network.velo(1)*time+(.5)*(accx)*(time)^2;
-    Vy = network.velo(2) + accy*time;
-    Dely = network.velo(2)*time+(.5)*(accy)*(time)^2;
-    newptx = Delx+network.loca(1);
-    newpty = Dely+network.loca(2);
-    network.loca = [newptx, newpty];
-    network.velo = [Vx, Vy];
+    [NFx,NFy] = netnetForce(network); %calculates the netforce of the network 
+    accx = NFx/network.mass; %acceleration in x direction
+    accy = NFy/network.mass; %acceleration in y direction
+    Vx = network.velo(1) + accx*time; %velocity in the x direction
+    Delx = network.velo(1)*time+(.5)*(accx)*(time)^2; %change in position in x direction
+    Vy = network.velo(2) + accy*time; %change in velocity in the y direction
+    Dely = network.velo(2)*time+(.5)*(accy)*(time)^2; %chance in position in y direction
+    newptx = Delx+network.loca(1); %calculates the new x coordinates
+    newpty = Dely+network.loca(2); %calcultes the new y coordinates
+    network.loca = [newptx, newpty]; %provides the x and y values in vector
+    network.velo = [Vx, Vy]; %provides the x and y velocity in vector
 end 
