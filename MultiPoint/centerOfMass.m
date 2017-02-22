@@ -1,6 +1,6 @@
  %function calculates the center of mass
  function cenOfMass = centerOfMass(network)
-    sumX = 0; %initial values to work with 
+    sumX = 0;
     sumY = 0;
     sumM = 0;
     for P = network.pnts %for loop iterates through the points of the network 
