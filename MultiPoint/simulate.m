@@ -1,6 +1,5 @@
-%function takes inputs and runs the simulation 
 function Networks = simulate(Networks,pntForceFuncs,interval,time,options)
-    eTime = 0;
+    eTime = 0; 
     
     for P = 1:length(Networks)
         Networks(P) = construct(Networks(P));
