@@ -1,20 +1,21 @@
 function Networks = simulate(Networks,pntForceFuncs,interval,time,options)
     eTime = 0;
+    
+    for P = 1:length(Networks)
+        Networks(P) = construct(Networks(P));
+    end
+    
     while eTime < time
         for N = 1:length(Networks)
-            TNET = Networks(N);
-            for P = TNET
-                TNET = construct(TNET);
-            end
             for F = 1:length(pntForceFuncs)
-                TNET.pnts = pntForceFuncs{F}(TNET.pnts);
+                Networks = pntForceFuncs{F}(Networks);
             end
             for F = 1:length(netwForceFuncs)
-                TNET = netwForceFuncs{F}(TNET);
+                Networks(N) = netwForceFuncs{F}(Networks(N));
             end
-            TNET = moveNet(TNET,interval);
-            TNET = netRotate(TNET,interval);
-            Networks(N) = TNET;
+            Networks(N) = moveNet(Networks(N),interval);
+            Networks(N) = rotateNet(Networks(N),interval);
+            Networks(N) = Networks(N);
         end
         eTime = eTime + interval;
         drawGUI(networks,options);
