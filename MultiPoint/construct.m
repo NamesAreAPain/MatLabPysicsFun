@@ -16,8 +16,8 @@ function network = construct(network)
     network.mofi = momentOfInertia(network);
     [A,network.area] = convhull(Xs,Ys,'simplify',true);
     
-    for B = 1:length(A)-1
-        network.boun = [network.boun network.pnts(A(B))];
-    end
+
+    network.boun = A;
+
     network = network;
 end

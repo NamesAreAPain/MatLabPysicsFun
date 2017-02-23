@@ -1,5 +1,5 @@
 %function takes inputs and runs the simulation 
-function Networks = simulate(Networks,pntForceFuncs,interval,time,options)
+function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time,options)
     eTime = 0;
     
     for P = 1:length(Networks)
@@ -16,7 +16,7 @@ function Networks = simulate(Networks,pntForceFuncs,interval,time,options)
             end
             Networks(N) = moveNet(Networks(N),interval);
             Networks(N) = rotateNet(Networks(N),interval);
-            Networks(N) = Networks(N);
+            Networks(N) = collision(Networks(N),Networks);
         end
         eTime = eTime + interval;
         drawGUI(networks,options);
