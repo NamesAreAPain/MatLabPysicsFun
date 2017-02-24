@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 %function takes inputs and runs the simulation 
 function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time,options)
     eTime = 0;
+=======
+function Networks = simulate(Networks,pntForceFuncs,interval,time,options)
+    eTime = 0; 
+>>>>>>> origin/master
     
     for P = 1:length(Networks)
         Networks(P) = construct(Networks(P));
