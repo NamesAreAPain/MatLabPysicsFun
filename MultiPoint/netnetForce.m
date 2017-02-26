@@ -1,10 +1,9 @@
-function nnF = netnetForce(network)
+function [X Y] = netnetForce(network)
     X = 0;
     Y = 0;
     for P = network.pnts
-        nF = netForce(P);
-        X = X + nF(1);
-        Y = Y + nF(2);
+        [x,y] = netForce(P);
+        X = X + x;
+        Y = Y + y;
     end
-    nnF = [X Y];
 end

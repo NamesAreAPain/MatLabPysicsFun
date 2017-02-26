@@ -5,8 +5,8 @@ function centerOfSpace = centerOfSpace(network)
     for P = network.pnts %takes network of points and iterates through 
         sumX = sumX + P.loca(1); %adds up the x values of the points
         sumY = sumY + P.loca(2); %adds up the y values of the points
-        avgX = 1:length(P) %not sure why I did this 
-        avgY = 1:length(P)
+        avgX = 1:length(P); %not sure why I did this 
+        avgY = 1:length(P);
     end
     centerOfSpace = [sumX/avgX sumY/avgY];
 end
