@@ -1,5 +1,7 @@
 %function takes inputs and runs the simulation 
 function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time,options)
+    %al = animatedline;
+    %axis([-10,10,-10,10])
     eTime = 0;
         
     while eTime < time
@@ -21,6 +23,7 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
         end
         
         eTime = eTime + interval;
-        drawGUI(Networks,options);
+        %al = drawGUI(Networks,options,al);
+        %drawnow
    end
 end
