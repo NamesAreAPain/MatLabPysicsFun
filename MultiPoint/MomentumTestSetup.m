@@ -8,8 +8,8 @@ PointG = struct('mass',1,'chrg',0,'loca',[6,-1],'velo', [0,0], 'forc',[0,0]);
 PointH = struct('mass',1,'chrg',0,'loca',[4,-1],'velo', [0,0], 'forc',[0,0]);
 
 
-Network1 = struct('pnts',[PointA PointB PointC PointD],'boun',[],'area',0,'loca',[0 0],'velo',[1,0],'avel',0,'mass',0,'mofi',0,'forc',[0 0]);
-Network2 = struct('pnts',[PointE PointF PointG PointH],'boun',[],'area',0,'loca',[0 0],'velo',[0,0],'avel',0,'mass',0,'mofi',0,'forc',[0 0]);
+Network1 = struct('pnts',[PointA PointB PointC PointD],'boun',[],'area',0,'loca',[0 0],'velo',[1,0],'avel',0,'mass',0,'mofi',0,'forc',[0 0],'name','moving one');
+Network2 = struct('pnts',[PointE PointF PointG PointH],'boun',[],'area',0,'loca',[0 0],'velo',[0,0],'avel',0,'mass',0,'mofi',0,'forc',[0 0],'name','stationary one');
 Networks = [Network1 Network2];
 
 options = struct('FOV', 4, 'stuff', 1);
