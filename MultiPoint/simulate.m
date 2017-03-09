@@ -7,7 +7,7 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
     while eTime < time
         for N = 1:length(Networks)
             for F = 1:length(pntForceFuncs)
-                Networks = pntForceFuncs{F}(Networks);
+                Networks = genericForceApplication(Networks(N),Networks,pntForceFuncs(F));
             end
             for F = 1:length(netwForceFuncs)
                 Networks(N) = netwForceFuncs{F}(Networks(N));
