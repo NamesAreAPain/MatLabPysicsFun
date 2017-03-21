@@ -1,5 +1,6 @@
-function al = drawGUI(networks,options,al)
-    addpoints(al, networks(1).loca(1), networks(1).loca(2) )
-    drawnow
-out = 0; 
+function out = drawGUI(network,options)
+global axisplot;
+axisplot;
+scatter([1 2 3], [1 2 3]);
 end
+
