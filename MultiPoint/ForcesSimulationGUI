@@ -1,3 +1,5 @@
+%% ForcesSimulationGUI
+%%
 function varargout = ForcesSimulationGUI(varargin)
 % FORCESSIMULATIONGUI MATLAB code for ForcesSimulationGUI.fig
 %      FORCESSIMULATIONGUI, by itself, creates a new FORCESSIMULATIONGUI or raises the existing
@@ -51,6 +53,10 @@ function ForcesSimulationGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to ForcesSimulationGUI (see VARARGIN)
+
+%create the structures to plot 
+
+
 
 % Choose default command line output for ForcesSimulationGUI
 handles.output = hObject;
@@ -128,6 +134,12 @@ function Startbutton_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of Startbutton
 handles.simulation
+mass1 = str2num(get(handles.massobject1,'String'));
+mass2 = str2num(get(handles.massobj2,'String'));
+Velocity1 = str2num(get(handles.velocityobj1,'String'));
+Velocity2 = str2num(get(handles.velocityobj2,'String'));
+Location1 = str2num(get(handles.Positionobj1,'String'));
+Location2 = str2num(get(handles.positionobj2,'String'));
 
 % --- Executes on button press in Pausebutton.
 function Pausebutton_Callback(hObject, eventdata, handles)
