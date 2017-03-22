@@ -23,7 +23,7 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
         end
         
         eTime = eTime + interval;
-        %al = drawGUI(Networks,options,al);
+        drawGUI(Networks,options);
         %drawnow
    end
 end
