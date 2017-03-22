@@ -1,6 +1,7 @@
-function out = drawGUI(network,options)
+function out = drawGUI(Networks,options)
 global axisplot;
 axisplot;
-scatter([1 2 3], [1 2 3]);
+cla
+createshapes(Networks);
+pause(0.05)
 end
-
