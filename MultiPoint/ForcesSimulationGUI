@@ -24,7 +24,7 @@ function varargout = ForcesSimulationGUI(varargin)
 
 % Edit the above text to modify the response to help ForcesSimulationGUI
 
-% Last Modified by GUIDE v2.5 20-Mar-2017 21:50:36
+% Last Modified by GUIDE v2.5 21-Mar-2017 19:46:13
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,9 +54,6 @@ function ForcesSimulationGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to ForcesSimulationGUI (see VARARGIN)
 
-%create the structures to plot 
-
-
 
 % Choose default command line output for ForcesSimulationGUI
 handles.output = hObject;
@@ -69,6 +66,8 @@ guidata(hObject, handles);
 
 global axisplot;
 axisplot = handles.simulation;
+axes(axisplot);
+axis equal;
 
 % --- Outputs from this function are returned to the command line.
 function varargout = ForcesSimulationGUI_OutputFcn(hObject, eventdata, handles) 
@@ -133,13 +132,32 @@ function Startbutton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of Startbutton
-handles.simulation
+handles.simulation;
 mass1 = str2num(get(handles.massobject1,'String'));
 mass2 = str2num(get(handles.massobj2,'String'));
 Velocity1 = str2num(get(handles.velocityobj1,'String'));
 Velocity2 = str2num(get(handles.velocityobj2,'String'));
 Location1 = str2num(get(handles.Positionobj1,'String'));
-Location2 = str2num(get(handles.positionobj2,'String'));
+Location2 = str2num(get(handles.Positionobj2,'String'));
+
+%create the structures to plot 
+
+Networks = pointsnet(mass1,Velocity1,Location1,mass2,Velocity2,Location2);
+for P = 1:length(Networks)
+    Networks(P) = construct(Networks(P));
+end
+
+cla
+
+createshapes(Networks);
+pause(2);
+Networks = simulate(Networks,{},{},0.01,10,{});
+disp('simulation complete');
+cla
+
+createshapes(Networks);
+
+
 
 % --- Executes on button press in Pausebutton.
 function Pausebutton_Callback(hObject, eventdata, handles)
@@ -148,6 +166,11 @@ function Pausebutton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of Pausebutton
+
+w = waitforbuttonpress;
+if w == 1
+    pause(w~=1)
+end
 
 
 % --- Executes on selection change in simulationsetups.
@@ -247,6 +270,8 @@ function Positionobj1_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of Positionobj1 as text
 %        str2double(get(hObject,'String')) returns contents of Positionobj1 as a double
 
+% Positionobj1 = str2num(get(handles.Positionobj1,'String'));
+% disp(Positionobj1)
 
 % --- Executes during object creation, after setting all properties.
 function Positionobj1_CreateFcn(hObject, eventdata, handles)
@@ -320,6 +345,29 @@ function edit16_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function positionobj2_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to positionobj2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function Positionobj2_Callback(hObject, eventdata, handles)
+% hObject    handle to Positionobj2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of Positionobj2 as text
+%        str2double(get(hObject,'String')) returns contents of Positionobj2 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function Positionobj2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to Positionobj2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
