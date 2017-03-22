@@ -1,0 +1,9 @@
+function creatshapes(Networks)
+
+X = [Networks(1).pnts(1).loca(1)  Networks(1).pnts(2).loca(1) Networks(1).pnts(4).loca(1) Networks(1).pnts(3).loca(1)];
+Y = [Networks(1).pnts(1).loca(2) Networks(1).pnts(2).loca(2) Networks(1).pnts(4).loca(2) Networks(1).pnts(3).loca(2)];
+Object1 = patch(X,Y,'k');
+
+X2 = [Networks(2).pnts(1).loca(1) Networks(2).pnts(2).loca(1) Networks(2).pnts(4).loca(1) Networks(2).pnts(3).loca(1)];
+Y2 = [Networks(2).pnts(1).loca(2) Networks(2).pnts(2).loca(2) Networks(2).pnts(4).loca(2) Networks(2).pnts(3).loca(2)];
+Object2 = patch(X2,Y2,'k');
