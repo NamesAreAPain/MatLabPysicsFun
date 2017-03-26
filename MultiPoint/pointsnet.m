@@ -1,6 +1,7 @@
 function Networks = pointsnet(mass,velocity,location)
-Networks = [];
+
 Network = struct('pnts',[],'boun',[],'area',0,'loca',[0 0],'velo',[0,0],'avel',0,'mass',0,'mofi',0,'forc',[0 0],'name', 'Network 1');
+Networks = [Network];
 Point = struct('mass',0,'chrg',0,'loca',[0,0],'velo', [0,0], 'forc',[0,0]);
 
 netNum = 2;
