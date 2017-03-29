@@ -5,6 +5,10 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
         
     while eTime < time
         for N = 1:length(Networks)
+            Networks(N).forc = [ 0 0 ];
+            for P = 1:length(Networks(N).pnts)
+                Networks(N).pnts(N).forc = [0 0];
+            end
             for F = 1:length(pntForceFuncs)
                 Networks = genericForceApplication(Networks(N),Networks,pntForceFuncs(F));
             end

@@ -1,14 +1,17 @@
 classdef NETWORK
-   properties
-      pnts
-      boun
-      area
-      loca
-      velo
-      avel
-      mass
-      mofi
-      forc
-      name
-   end
+    properties
+        pnts = InitializePnts;
+        boun
+        area
+        loca
+        velo 
+        avel
+        mass
+        mofi
+        forc = [0 0];
+        name
+    end
+end
+function pnts=InitializePnts
+    pnts(2,1) = POINT;
 end

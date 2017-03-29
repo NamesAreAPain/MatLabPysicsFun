@@ -1,12 +1,12 @@
-function network = construct(network)
+function network = setUpNetwork(network)
     netMass = 0;
     Xs = zeros(length(network.pnts),1);
     Ys = zeros(length(network.pnts),1);
     iter = 1;
-    for P = network.pnts
-        netMass = netMass + P.mass;
-        Xs(iter) = P.loca(1);
-        Ys(iter) = P.loca(2);
+    for P = 1:length(network.pnts)
+        netMass = netMass + network.pnts(P).mass;
+        Xs(iter) = network.pnts(P).loca(1);
+        Ys(iter) = network.pnts(P).loca(2);
         iter = iter + 1;
     end
     Xs = Xs';
@@ -26,10 +26,10 @@ end
 function mOI = momentOfInertia(network)
     mOI = 0;
     cOM = centerOfMass(network);
-    for P = network.pnts
-       A = struct('loca',P.loca);
+    for P = 1:length(network.pnts)
+       A = struct('loca',network.pnts(P).loca);
        B = struct('loca',cOM);
-       mOI = mOI + P.mass * distance(A,B)^2; 
+       mOI = mOI + network.pnts(P).mass * distance(A,B)^2; 
     end
 end
 
@@ -38,10 +38,10 @@ end
     sumX = 0;
     sumY = 0;
     sumM = 0;
-    for P = network.pnts %for loop iterates through the points of the network 
-        sumX = sumX + P.loca(1)*P.mass; %multiplies the position and the mass of the points in the network to get the sum of all x values
-        sumY = sumY + P.loca(2)*P.mass; %multiplies the position and the mass of the points in the network to get the sum of all y values
-        sumM = sumM + P.mass; %adds of the masses to get the total mass
+    for P = 1:length(network.pnts) %for loop iterates through the points of the network 
+        sumX = sumX + network.pnts(P).loca(1)*network.pnts(P).mass; %multiplies the position and the mass of the points in the network to get the sum of all x values
+        sumY = sumY + network.pnts(P).loca(2)*network.pnts(P).mass; %multiplies the position and the mass of the points in the network to get the sum of all y values
+        sumM = sumM + network.pnts(P).mass; %adds of the masses to get the total mass
     end
     cenOfMass = [sumX sumY]./sumM; %takes the vector made up of the sum of the x and y values and divides each element by the total mass
 end
