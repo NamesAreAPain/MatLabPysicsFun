@@ -134,15 +134,15 @@ function Startbutton_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of Startbutton
 handles.simulation;
 mass = [str2num(get(handles.massobject1,'String')),str2num(get(handles.massobj2,'String'))];
-velocity = [str2num(get(handles.velocityobj1,'String')),str2num(get(handles.velocityobj1,'String'))]; 
-location = [str2num(get(handles.Positionobj1,'String')),str2num(get(handles.Positionobj2,'String'))];
+velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj1,'String'))]; 
+location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'))];
 
 
 %create the structures to plot 
 
 Networks = pointsnet(mass,velocity,location);
 for P = 1:length(Networks)
-    Networks(P) = construct(Networks(P));
+    Networks(P) = setUpNetwork(Networks(P));
 end
 
 cla
