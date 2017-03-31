@@ -167,7 +167,9 @@ function Pausebutton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of Pausebutton
-
+global ENDING
+Pauseb = get(handles.Pausebutton,'Value');
+Pauseb = ENDING;
 ENDING = 1;
 
 
