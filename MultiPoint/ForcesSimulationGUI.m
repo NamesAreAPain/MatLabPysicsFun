@@ -133,6 +133,8 @@ function Startbutton_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of Startbutton
 handles.simulation;
+global ENDING; 
+ENDING = 0;
 mass = [str2num(get(handles.massobject1,'String')),str2num(get(handles.massobj2,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj1,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'))];
@@ -154,9 +156,6 @@ disp('simulation complete');
 cla
 
 createshapes(Networks);
-
-global ENDING 
-ENDING = 0
 
 
 
