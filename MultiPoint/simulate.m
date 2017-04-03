@@ -1,5 +1,5 @@
 %function takes inputs and runs the simulation 
-function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time,options)
+function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time,options,axisJ)
     global ENDING;
     eTime = 0;
         
@@ -26,7 +26,7 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
         end
         
         eTime = eTime + interval;
-        drawGUI(Networks,options);
+        drawGUI(Networks,options,axisJ);
         if(ENDING)
             break;
         end
