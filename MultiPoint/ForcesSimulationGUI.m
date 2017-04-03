@@ -64,10 +64,10 @@ guidata(hObject, handles);
 % UIWAIT makes ForcesSimulationGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
-global axisplot;
-axisplot = handles.simulation;
-axes(axisplot);
-axis equal;
+% global axisplot;
+% axisplot = handles.simulation;
+% axes(axisplot);
+% axis equal;
 
 % --- Outputs from this function are returned to the command line.
 function varargout = ForcesSimulationGUI_OutputFcn(hObject, eventdata, handles) 
@@ -133,10 +133,10 @@ function Startbutton_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of Startbutton
 handles.simulation;
-global ENDING; 
+global ENDING 
 ENDING = 0;
 mass = [str2num(get(handles.massobject1,'String')),str2num(get(handles.massobj2,'String'))];
-velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj1,'String'))]; 
+velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'))];
 
 
@@ -147,15 +147,19 @@ for P = 1:length(Networks)
     Networks(P) = setUpNetwork(Networks(P));
 end
 
-cla
 
-createshapes(Networks);
-pause(2);
-Networks = simulate(Networks,{},{},0.01,10,{});
+% createshapes(Networks);
+% pause(2);
+Networks = simulate(Networks,{},{},0.01,10,{},handles.simulation);
+% cla
+% createshapes(Networks);
+% % cla
 disp('simulation complete');
-cla
+% drawnow update;
+% cla
+% createshapes(Networks);
 
-createshapes(Networks);
+
 
 
 
