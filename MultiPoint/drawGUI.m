@@ -1,7 +1,4 @@
-function out = drawGUI(Networks,options)
-global axisplot;
-axisplot;
-cla
-createshapes(Networks);
+function out = drawGUI(Networks,options,axisJ)
+createshapes(Networks,axisJ);
 pause(0.05)
 end
