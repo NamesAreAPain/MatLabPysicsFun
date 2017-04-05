@@ -11,7 +11,9 @@ end
 
 function isCollidingo = isColliding(NetworkS,NetworkO)
 isCollidingo = 0;
-%if(distance(NetworkS,NetworkO) >
+if(distance(NetworkS,NetworkO) > NetworkS.maxradius + NetworkO.maxradius)
+    return;
+end
 for pnt = 1:length(NetworkS.pnts)
     isCollidingo = isCollidingo | isClipping(NetworkS.pnts(pnt),NetworkO.pnts(NetworkO.boun));
     if((isCollidingo))
@@ -22,25 +24,22 @@ end
 
 %looks at the vetices of the network and calculates the angle between the vertices and the point of the other network to see if it has overlaped
 function bool = isClipping(pntA, vertices)
-bool = 0;
+bool = 1;
 Pq = pntA.loca';
-V(length(vertices)+1,:) = vertices(1).loca;
 for v = length(vertices):-1:1
     V(v,:) = vertices(v).loca;
 end
 Pc = [mean(V(:,1)) mean(V(:,2))];
 
-for v = 1:length(vertices)
+for v = 1:length(vertices)-1
     V1 = V(v,:);
     V2 = V(v+1,:);
     
     P(1) = det([ det([Pq;Pc]) det([Pq(1) 1 ; Pc(1) 1]) ; det([V1;V2]) det([V1(1) 1; V2(1) 1])]) / det([ det([Pq(1) 1 ; Pc(1) 1]) det([Pq(2) 1 ; Pc(2) 1]) ; det([V1(1) 1; V2(1) 1]) det([V1(2) 1; V2(2) 1])]);
     P(2) = det([ det([Pq;Pc]) det([Pq(2) 1 ; Pc(2) 1]) ; det([V1;V2]) det([V1(2) 1; V2(2) 1])]) / det([ det([Pq(1) 1 ; Pc(1) 1]) det([Pq(2) 1 ; Pc(2) 1]) ; det([V1(1) 1; V2(1) 1]) det([V1(2) 1; V2(2) 1])]);
     
-    if P(1) >= min([Pq(1) Pc(1)]) && P(1) <= max([Pq(1) Pc(1)]) && P(1) >= min([V1(1) V2(1)]) && P(1) <= max([V1(1) V1(1)]) && P(2) >= min([Pq(2) Pc(2)]) && P(2) <= max([Pq(2) Pc(2)]) && P(2) >= min([V1(2) V2(2)]) && P(2) <= max([V1(2) V1(2)])
-        bool = 1;
-        break;
-    end
+    bool = bool || P(1) >= min([Pq(1) Pc(1)]) && P(1) <= max([Pq(1) Pc(1)]) && P(1) >= min([V1(1) V2(1)]) && P(1) <= max([V1(1) V2(1)]) && P(2) >= min([Pq(2) Pc(2)]) && P(2) <= max([Pq(2) Pc(2)]) && P(2) >= min([V1(2) V2(2)]) && P(2) <= max([V1(2) V2(2)]);
+    
 end
 end
 

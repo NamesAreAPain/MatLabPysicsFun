@@ -18,13 +18,9 @@ function network = setUpNetwork(network)
     network.boun = A;
     
     
-    r = zeros(1:length(network.pnts));
-    for zxc = 1:length(A)
-        x = A(zxc);
-        r(x) = sqrt(sum((network.pnts(x).loca - network.loca).^2));
-    end 
-    
-    network.maxradius = max(r);
+    r = zeros(1:
+    for x = A:
+        r = sqrt((Network.pnts(x).loca - Network.loca).^2)
     
     
     network = network;
