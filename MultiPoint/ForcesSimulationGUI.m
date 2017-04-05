@@ -390,7 +390,9 @@ function speedslider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
+Speedval = str2num(get(handles.speedslider,'Value'));
+Speedmin = str2num(get(handles.speedslider,'Min'));
+Speedmax = str2num(get(handles.speedslider,'Max'));
 
 % --- Executes during object creation, after setting all properties.
 function speedslider_CreateFcn(hObject, eventdata, handles)
