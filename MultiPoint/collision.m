@@ -22,7 +22,7 @@ for pnt = 1:length(NetworkS.pnts)
 end
 end
 
-%looks at the vetices of the network and calculates the angle between the vertices and the point of the other network to see if it has overlaped
+
 function bool = isClipping(pntA, vertices)
 bool = 1;
 Pq = pntA.loca';
