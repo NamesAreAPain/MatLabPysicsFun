@@ -1,53 +1,37 @@
 function Networks = collision(Networks,a,b)
-if(isColliding(Networks(a),Networks(b)))
-    v1fx = ( (Networks(a).mass - Networks(b).mass) * Networks(a).velo(1) + 2*Networks(b).mass*Networks(b).velo(1))/(Networks(a).mass + Networks(b).mass);
-    v2fx = ( 2*Networks(a).mass*Networks(a).velo(1) - (Networks(a).mass-Networks(b).mass)*Networks(b).velo(1))/(Networks(a).mass+Networks(b).mass);
-    v1fy = ( (Networks(a).mass - Networks(b).mass) * Networks(a).velo(2) + 2*Networks(b).mass*Networks(b).velo(2))/(Networks(a).mass + Networks(b).mass);
-    v2fy = ( 2*Networks(a).mass*Networks(a).velo(2) - (Networks(a).mass-Networks(b).mass)*Networks(b).velo(2))/(Networks(a).mass+Networks(b).mass);
-    Networks(a) = applyImpulse(Networks(a),[v1fx - Networks(a).velo(1),v1fy - Networks(a).velo(2)]*Networks(a).mass);
-    Networks(b) = applyImpulse(Networks(b),[v2fx - Networks(b).velo(1),v2fy - Networks(b).velo(2)]*Networks(b).mass);
-end
+       if(isColliding(Networks(a),Networks(b)))
+           v1fx = ( (Networks(a).mass - Networks(b).mass) * Networks(a).velo(1) + 2*Networks(b).mass*Networks(b).velo(1))/(Networks(a).mass + Networks(b).mass);
+           v2fx = ( 2*Networks(a).mass*Networks(a).velo(1) - (Networks(a).mass-Networks(b).mass)*Networks(b).velo(1))/(Networks(a).mass+Networks(b).mass);
+           v1fy = ( (Networks(a).mass - Networks(b).mass) * Networks(a).velo(2) + 2*Networks(b).mass*Networks(b).velo(2))/(Networks(a).mass + Networks(b).mass);
+           v2fy = ( 2*Networks(a).mass*Networks(a).velo(2) - (Networks(a).mass-Networks(b).mass)*Networks(b).velo(2))/(Networks(a).mass+Networks(b).mass);
+           Networks(a) = applyImpulse(Networks(a),[v1fx - Networks(a).velo(1),v1fy - Networks(a).velo(2)]*Networks(a).mass);
+           Networks(b) = applyImpulse(Networks(b),[v2fx - Networks(b).velo(1),v2fy - Networks(b).velo(2)]*Networks(b).mass);
+       end
 end
 
 function isCollidingo = isColliding(NetworkS,NetworkO)
-isCollidingo = 0;
-%if(distance(NetworkS,NetworkO) >
-for pnt = 1:length(NetworkS.pnts)
-    isCollidingo = isCollidingo | isClipping(NetworkS.pnts(pnt),NetworkO.pnts(NetworkO.boun));
-    if(not(isCollidingo))
-        break;
+    isCollidingo = 0;
+    %if(distance(NetworkS,NetworkO) > 
+    for pnt = 1:length(NetworkS.pnts)
+        isCollidingo = isCollidingo | isClipping(NetworkS.pnts(pnt),NetworkO.pnts(NetworkO.boun));
     end
-end
 end
 
 %looks at the vetices of the network and calculates the angle between the vertices and the point of the other network to see if it has overlaped
 function bool = isClipping(pntA, vertices)
-bool = 0;
-Pq = pntA.loca';
-V(length(vertices)+1,:) = vertices(1).loca;
-for v = length(vertices):-1:1
-    V(v,:) = vertices(v).loca;
-end
-Pc = [mean(V(:,1)) mean(V(:,2))];
-
-for v = 1:length(vertices)
-    V1 = V(v,:);
-    V2 = V(v+1,:);
-    
-    P(1) = det([ det([Pq;Pc]) det([Pq(1) 1 ; Pc(1) 1]) ; det([V1;V2]) det([V1(1) 1; V2(1) 1])]) / det([ det([Pq(1) 1 ; Pc(1) 1]) det([Pq(2) 1 ; Pc(2) 1]) ; det([V1(1) 1; V2(1) 1]) det([V1(2) 1; V2(2) 1])]);
-    P(2) = det([ det([Pq;Pc]) det([Pq(2) 1 ; Pc(2) 1]) ; det([V1;V2]) det([V1(2) 1; V2(2) 1])]) / det([ det([Pq(1) 1 ; Pc(1) 1]) det([Pq(2) 1 ; Pc(2) 1]) ; det([V1(1) 1; V2(1) 1]) det([V1(2) 1; V2(2) 1])]);
-    
-    if P(1) >= min([Pq(1) Pc(1)]) && P(1) <= max([Pq(1) Pc(1)]) && P(1) >= min([V1(1) V2(1)]) && P(1) <= max([V1(1) V1(1)]) && P(2) >= min([Pq(2) Pc(2)]) && P(2) <= max([Pq(2) Pc(2)]) && P(2) >= min([V1(2) V2(2)]) && P(2) <= max([V1(2) V1(2)])
-        bool = 1;
-        break;
+    dVecs = zeros(length(vertices),2);
+    for iter = 1:length(vertices)
+        dVecs(iter,:) = disVec(pntA, vertices(iter));
     end
-end
+    angles = atan2(dVecs(:,2),dVecs(:,1));
+    totalA = sum(angles);
+    bool = abs(0-totalA) < 0.05;
 end
 
 
 function Network = applyImpulse(Network,impvec)
-Network.velo = (Network.velo*Network.mass+impvec)/Network.mass;
-fprintf('COLLISION! applying impulse of %.1f %.1f to %s\n',impvec,Network.name)
+    Network.velo = (Network.velo*Network.mass+impvec)/Network.mass;
+    fprintf('COLLISION! applying impulse of %.1f %.1f to %s\n',impvec,Network.name)
 end
 
 % If you are reading this, and planning on building on it for your ENGR160
@@ -64,4 +48,4 @@ end
 %       2) add concave shape support so that you can do things like gears
 %       3) add more forces
 %       4) alchemy
-%       If you do anything cool with it, hit me up.
+%       If you do anything cool with it, hit me up. 
