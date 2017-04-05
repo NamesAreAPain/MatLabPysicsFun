@@ -14,7 +14,7 @@ isCollidingo = 0;
 %if(distance(NetworkS,NetworkO) >
 for pnt = 1:length(NetworkS.pnts)
     isCollidingo = isCollidingo | isClipping(NetworkS.pnts(pnt),NetworkO.pnts(NetworkO.boun));
-    if(not(isCollidingo))
+    if((isCollidingo))
         break;
     end
 end
