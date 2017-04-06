@@ -24,7 +24,7 @@ function varargout = ForcesSimulationGUI(varargin)
 
 % Edit the above text to modify the response to help ForcesSimulationGUI
 
-% Last Modified by GUIDE v2.5 23-Mar-2017 22:15:15
+% Last Modified by GUIDE v2.5 06-Apr-2017 11:07:39
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -57,17 +57,18 @@ function ForcesSimulationGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for ForcesSimulationGUI
 handles.output = hObject;
+set(handles.massobject1,'string','10');
+set(handles.massobj2,'string','10');
+set(handles.velocityobj1,'string','[1 0]');
+set(handles.velocityobj2,'string','[-1 0]');
+set(handles.Positionobj1,'string','[-5 0]');
+set(handles.Positionobj2,'string','[5 0]');
 
 % Update handles structure
 guidata(hObject, handles);
 
 % UIWAIT makes ForcesSimulationGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-
-% global axisplot;
-% axisplot = handles.simulation;
-% axes(axisplot);
-% axis equal;
 
 % --- Outputs from this function are returned to the command line.
 function varargout = ForcesSimulationGUI_OutputFcn(hObject, eventdata, handles) 
@@ -117,6 +118,8 @@ function position_CreateFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
+%TooltipString
+
 
 % --- Executes during object deletion, before destroying properties.
 function simulation_DeleteFcn(hObject, eventdata, handles)
@@ -124,6 +127,16 @@ function simulation_DeleteFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+Massstr = sprintf('in kilograms');
+set(handles.mass,'TooltipString',Massstr)
+
+
+Velostr = sprintf('in meters per second');
+set(handles.velocity,'TooltipString',Velostr)
+
+
+Positionstr = sprintf('in meters');
+set(handles.position,'TooltipString',Positionstr)
 
 % --- Executes on button press in Startbutton.
 function Startbutton_Callback(hObject, eventdata, handles)
@@ -135,9 +148,19 @@ function Startbutton_Callback(hObject, eventdata, handles)
 handles.simulation;
 global ENDING 
 ENDING = 0;
+% keeps throwing error using vertcat dimensions of matrices being
+% concatenated are not consistent
+
+% if not(isvector(str2num(get(handles.velocityobj1,'String')))) || not(isvector(str2num(get(handles.Positionobj1,'String')))) || not(isvector(str2num(get(handles.velocityobj2,'String'))))|| not(isvector(str2num(get(handles.Positionobj2,'String'))))  
+%     h = msgbox('Input for velocity and position must be a vector','Error');
+%     return
+% end
+ 
 mass = [str2num(get(handles.massobject1,'String')),str2num(get(handles.massobj2,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'))];
+
+set(handles.Startbutton,'Enable','off');
 
 
 %create the structures to plot 
@@ -147,21 +170,10 @@ for P = 1:length(Networks)
     Networks(P) = setUpNetwork(Networks(P));
 end
 
-
-% createshapes(Networks);
-% pause(2);
 Networks = simulate(Networks,{},{},0.01,10,{},handles.simulation);
-% cla
-% createshapes(Networks);
-% % cla
 disp('simulation complete');
-% drawnow update;
-% cla
-% createshapes(Networks);
 
-
-
-
+set(handles.Startbutton,'Enable','on');
 
 % --- Executes on button press in Pausebutton.
 function Pausebutton_Callback(hObject, eventdata, handles)
@@ -404,3 +416,18 @@ function speedslider_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes during object creation, after setting all properties.
+function mass_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to mass (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+
+
+% --- Executes during object creation, after setting all properties.
+function velocity_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to velocity (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
