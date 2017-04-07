@@ -63,6 +63,10 @@ set(handles.velocityobj1,'string','[1 0]');
 set(handles.velocityobj2,'string','[-1 0]');
 set(handles.Positionobj1,'string','[-5 0]');
 set(handles.Positionobj2,'string','[5 0]');
+Speedmin = set(handles.speedslider,'Min',1);
+Speedmax = set(handles.speedslider,'Max',100);
+Speedvalue = set(handles.speedslider,'Value',50);
+
 
 % Update handles structure
 guidata(hObject, handles);
@@ -402,9 +406,12 @@ function speedslider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-Speedval = str2num(get(handles.speedslider,'Value'));
-Speedmin = str2num(get(handles.speedslider,'Min'));
-Speedmax = str2num(get(handles.speedslider,'Max'));
+global TICKTIME;
+% Speedmin = str2num(get(handles.speedslider,'Min'));
+% Speedmax = str2num(get(handles.speedslider,'Max'));
+
+Speedval = get(handles.speedslider,'Value');
+TICKTIME = Speedval/1000;
 
 % --- Executes during object creation, after setting all properties.
 function speedslider_CreateFcn(hObject, eventdata, handles)
