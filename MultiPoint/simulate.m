@@ -1,9 +1,11 @@
 %function takes inputs and runs the simulation 
 function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time,options,axisJ)
     global ENDING;
+    global TICKTIME
     eTime = 0;
         
     while eTime < time
+        btime = clock;
         for N = 1:length(Networks)
             Networks(N).forc = [ 0 0 ];
             for P = 1:length(Networks(N).pnts)
@@ -30,5 +32,7 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
         if(ENDING)
             break;
         end
+        ctime = clock-btime;
+        pause(TICKTIME-ctime(end))
    end
 end
