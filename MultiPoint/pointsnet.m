@@ -1,6 +1,11 @@
 function Networks = pointsnet(mass,velocity,location)
 
-netNum = 2;
+
+if length(mass) == 2
+    netNum = 2;
+else 
+    netNum = 3;
+end
 pntNum = 8;
 
 Networks(netNum) = NETWORK;
