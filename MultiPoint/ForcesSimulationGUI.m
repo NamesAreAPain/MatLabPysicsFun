@@ -24,7 +24,7 @@ function varargout = ForcesSimulationGUI(varargin)
 
 % Edit the above text to modify the response to help ForcesSimulationGUI
 
-% Last Modified by GUIDE v2.5 06-Apr-2017 11:07:39
+% Last Modified by GUIDE v2.5 10-Apr-2017 20:13:12
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -59,10 +59,13 @@ function ForcesSimulationGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 set(handles.massobject1,'string','10');
 set(handles.massobj2,'string','10');
+set(handles.object3mass,'string','10');
 set(handles.velocityobj1,'string','[1 0]');
 set(handles.velocityobj2,'string','[-1 0]');
+set(handles.object3velo,'string','[1 2]');
 set(handles.Positionobj1,'string','[-5 0]');
 set(handles.Positionobj2,'string','[5 0]');
+set(handles.object3pos,'string','[0 -5]');
 Speedmin = set(handles.speedslider,'Min',1);
 Speedmax = set(handles.speedslider,'Max',100);
 Speedvalue = set(handles.speedslider,'Value',50);
@@ -94,6 +97,8 @@ function listbox1_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox1 contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from listbox1
+
+presets = cellstr(get(handles.listbox1,'String'));
 
 
 % --- Executes during object creation, after setting all properties.
@@ -160,9 +165,9 @@ ENDING = 0;
 %     return
 % end
  
-mass = [str2num(get(handles.massobject1,'String')),str2num(get(handles.massobj2,'String'))];
-velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'))]; 
-location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'))];
+mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
+velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
+location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
 
 set(handles.Startbutton,'Enable','off');
 
@@ -438,3 +443,72 @@ function velocity_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to velocity (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
+
+
+
+function object3mass_Callback(hObject, eventdata, handles)
+% hObject    handle to object3mass (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of object3mass as text
+%        str2double(get(hObject,'String')) returns contents of object3mass as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function object3mass_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to object3mass (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function object3velo_Callback(hObject, eventdata, handles)
+% hObject    handle to object3velo (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of object3velo as text
+%        str2double(get(hObject,'String')) returns contents of object3velo as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function object3velo_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to object3velo (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function object3pos_Callback(hObject, eventdata, handles)
+% hObject    handle to object3pos (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of object3pos as text
+%        str2double(get(hObject,'String')) returns contents of object3pos as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function object3pos_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to object3pos (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
