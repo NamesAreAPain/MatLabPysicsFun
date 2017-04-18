@@ -24,7 +24,7 @@ function varargout = ForcesSimulationGUI(varargin)
 
 % Edit the above text to modify the response to help ForcesSimulationGUI
 
-% Last Modified by GUIDE v2.5 10-Apr-2017 20:13:12
+% Last Modified by GUIDE v2.5 17-Apr-2017 17:34:29
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -157,14 +157,13 @@ function Startbutton_Callback(hObject, eventdata, handles)
 handles.simulation;
 global ENDING 
 ENDING = 0;
-% keeps throwing error using vertcat dimensions of matrices being
-% concatenated are not consistent
 
-% if not(isvector(str2num(get(handles.velocityobj1,'String')))) || not(isvector(str2num(get(handles.Positionobj1,'String')))) || not(isvector(str2num(get(handles.velocityobj2,'String'))))|| not(isvector(str2num(get(handles.Positionobj2,'String'))))  
-%     h = msgbox('Input for velocity and position must be a vector','Error');
-%     return
-% end
- 
+%[x, y] = getpts(fig)
+% I am not sure where we have to put the code that will get the position of
+% the objects but we need to figure that out
+% Also, we need to make it so that you can draw an arrow to determine
+% direction and speed of the object
+
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
@@ -512,3 +511,21 @@ function object3pos_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in checkbox1.
+function checkbox1_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox1
+
+
+% --- Executes on button press in checkbox2.
+function checkbox2_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox2
