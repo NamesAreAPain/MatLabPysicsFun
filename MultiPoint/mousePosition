@@ -1,0 +1,16 @@
+function mousePosition (hObject,eventdata,mass,bin,clickcounter)
+C = get (gca, 'CurrentPoint');
+X = C(1,1);
+Y = C(1,2);
+
+
+disp(clickcounter)
+
+clickcounter = clickcounter + 1;
+bin = bin + 1;
+if clickcounter < 3
+ bin(clickcounter) = annotation('ellipse',[ (X)/40 (Y)/40 .05 .05],'facecolor','k');
+end
+
+% pointsnet(mass,NaN,[X Y])
+end
