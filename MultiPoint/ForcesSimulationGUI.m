@@ -24,7 +24,7 @@ function varargout = ForcesSimulationGUI(varargin)
 
 % Edit the above text to modify the response to help ForcesSimulationGUI
 
-% Last Modified by GUIDE v2.5 17-Apr-2017 17:34:29
+% Last Modified by GUIDE v2.5 21-Apr-2017 12:35:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -63,13 +63,34 @@ set(handles.object3mass,'string','10');
 set(handles.velocityobj1,'string','[1 0]');
 set(handles.velocityobj2,'string','[-1 0]');
 set(handles.object3velo,'string','[1 2]');
-set(handles.Positionobj1,'string','[-5 0]');
-set(handles.Positionobj2,'string','[5 0]');
-set(handles.object3pos,'string','[0 -5]');
+set(handles.Positionobj1,'string','[15 25]');
+set(handles.Positionobj2,'string','[30 25]');
+set(handles.object3pos,'string','[14 20]');
 Speedmin = set(handles.speedslider,'Min',1);
 Speedmax = set(handles.speedslider,'Max',100);
 Speedvalue = set(handles.speedslider,'Value',50);
 
+global clickcounter
+clickcounter = 0;
+global bin
+bin = [];
+global mass
+mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
+
+
+
+% Button-press callback function, specified as one of these values:
+% 
+% A function handle.
+% A cell array in which the first element is a function handle. Subsequent elements in the cell array are the arguments to pass to the callback function.
+% A character vector containing a valid MATLAB expression. For example, 'disp(''hello world'')' calls the disp function. MATLAB evaluates this expression in the base workspace.
+% For more information about specifying a callback property value as a function handle, cell array, or character vector, see How to Specify Callback Property Values.
+% 
+% This callback executes whenever the user clicks a mouse button while the pointer is in the figure window, but not over a child object such as a uicontrol, uipanel, axes, or axes child.
+% 
+% See the figure's SelectionType property to determine whether modifier keys are also pressed.
+
+%look up figure properties on how to control the position of the mouse
 
 % Update handles structure
 guidata(hObject, handles);
@@ -178,7 +199,7 @@ for P = 1:length(Networks)
     Networks(P) = setUpNetwork(Networks(P));
 end
 
-Networks = simulate(Networks,{},{},0.01,10,{},handles.simulation);
+Networks = simulate(Networks,{},{},0.01,Inf,{},handles.simulation);
 disp('simulation complete');
 
 set(handles.Startbutton,'Enable','on');
@@ -529,3 +550,23 @@ function checkbox2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox2
+
+
+% --- Executes on button press in radiobutton2.
+function radiobutton2_Callback(hObject, eventdata, handles)
+% hObject    handle to radiobutton2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of radiobutton2
+
+Status = get(handles.radiobutton2,'Value');
+
+clickcounter = 0;
+bin = [];
+mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
+
+
+if Status ~= 0
+    set (gcf, 'WindowButtonDownFcn', {@mousePosition,mass,bin,clickcounter});
+end
