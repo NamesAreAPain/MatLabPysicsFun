@@ -1,16 +1,18 @@
-function mousePosition (hObject,eventdata,mass,bin,clickcounter)
+function mousePosition (hObject,eventdata,mass)
+global clickcounter
+global bin 
+
 C = get (gca, 'CurrentPoint');
 X = C(1,1);
 Y = C(1,2);
 
-
-disp(clickcounter)
-
 clickcounter = clickcounter + 1;
-bin = bin + 1;
-if clickcounter < 3
- bin(clickcounter) = annotation('ellipse',[ (X)/40 (Y)/40 .05 .05],'facecolor','k');
+disp(clickcounter)
+if clickcounter <= 3
+ bin(clickcounter) = plot(X,Y,'o','MarkerSize',12,'MarkerFaceColor','k');  
 end
+
+set (gcf, 'WindowButtonMotionFcn', {@mouseMove,mass});
 
 % pointsnet(mass,NaN,[X Y])
 end
