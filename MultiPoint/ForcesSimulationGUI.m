@@ -550,8 +550,6 @@ function checkbox2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox2
-
-
 % --- Executes on button press in radiobutton2.
 function radiobutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to radiobutton2 (see GCBO)
@@ -559,14 +557,16 @@ function radiobutton2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of radiobutton2
-
-Status = get(handles.radiobutton2,'Value');
+global clickcounter
 
 clickcounter = 0;
-bin = [];
+Status = get(handles.radiobutton2,'Value');
+
+
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
 
-
-if Status ~= 0
-    set (gcf, 'WindowButtonDownFcn', {@mousePosition,mass,bin,clickcounter});
+pause(.001)
+if Status == 1
+    set(gcf,'Units','normalized');
+    set (gcf, 'WindowButtonDownFcn', {@mousePosition,mass});
 end
