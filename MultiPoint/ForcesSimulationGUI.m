@@ -72,10 +72,13 @@ Speedvalue = set(handles.speedslider,'Value',50);
 
 global clickcounter
 clickcounter = 0;
-global bin
-bin = [];
 global mass
+global velocity
+global location
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
+velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
+location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
+
 
 
 
@@ -184,7 +187,9 @@ ENDING = 0;
 % the objects but we need to figure that out
 % Also, we need to make it so that you can draw an arrow to determine
 % direction and speed of the object
-
+global mass
+global velocity
+global location
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
@@ -194,7 +199,7 @@ set(handles.Startbutton,'Enable','off');
 
 %create the structures to plot 
 
-Networks = pointsnet(mass,velocity,location);
+Networks = pointsnet(location,velocity,mass);
 for P = 1:length(Networks)
     Networks(P) = setUpNetwork(Networks(P));
 end
@@ -550,6 +555,8 @@ function checkbox2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox2
+
+
 % --- Executes on button press in radiobutton2.
 function radiobutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to radiobutton2 (see GCBO)
@@ -557,8 +564,8 @@ function radiobutton2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of radiobutton2
-global clickcounter
-
+% global clickcounter
+% 
 clickcounter = 0;
 Status = get(handles.radiobutton2,'Value');
 
