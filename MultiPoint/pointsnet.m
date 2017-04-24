@@ -1,8 +1,22 @@
-function Networks = pointsnet(mass,velocity,location)
+function Networks = pointsnet(varargin)
+global mass
+global location
+global velocity 
+
+n = nargin;
+location =  varargin{1};
+if n == 2
+    varargin{2} = velocity;
+else
+    varargin{2} = velocity;
+    varargin{3} = mass;
+   
 
 
 if length(mass) == 2
     netNum = 2;
+elseif length(mass) == 1
+    netNum = 1;
 else 
     netNum = 3;
 end
