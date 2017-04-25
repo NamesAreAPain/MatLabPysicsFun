@@ -71,7 +71,7 @@ Speedmax = set(handles.speedslider,'Max',100);
 Speedvalue = set(handles.speedslider,'Value',50);
 
 global clickcounter
-clickcounter = 0; % this was added because we were trying to make it possible to create object upon mouse click so the clicks could be tracked 
+clickcounter = 0;
 
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
@@ -531,10 +531,8 @@ function radiobutton2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of radiobutton2
-
-% try to make it so that the objects are being counted after this button has been pressed instead of tracking the clicks because user might accidentally click somewhere when the user actually does not want an object there
-% so this makes it difficult to debug the code 
-
+% global clickcounter
+% 
 clickcounter = 0;
 Status = get(handles.radiobutton2,'Value');
 
