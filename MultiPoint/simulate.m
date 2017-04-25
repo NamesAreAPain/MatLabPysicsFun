@@ -3,7 +3,7 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
 global ENDING;
 global TICKTIME
 eTime = 0;
-
+disp('simulation start');
 while eTime < time
     btime = clock;
     for N = 1:length(Networks)
@@ -30,6 +30,7 @@ while eTime < time
     eTime = eTime + interval;
     drawGUI(Networks,options,axisJ);
     if(ENDING)
+        ENDING = 0;
         break;
     end
     ctime = clock-btime;
