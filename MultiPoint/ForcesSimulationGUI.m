@@ -72,28 +72,11 @@ Speedvalue = set(handles.speedslider,'Value',50);
 
 global clickcounter
 clickcounter = 0;
-global mass
-global velocity
-global location
+
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
 
-
-
-
-% Button-press callback function, specified as one of these values:
-% 
-% A function handle.
-% A cell array in which the first element is a function handle. Subsequent elements in the cell array are the arguments to pass to the callback function.
-% A character vector containing a valid MATLAB expression. For example, 'disp(''hello world'')' calls the disp function. MATLAB evaluates this expression in the base workspace.
-% For more information about specifying a callback property value as a function handle, cell array, or character vector, see How to Specify Callback Property Values.
-% 
-% This callback executes whenever the user clicks a mouse button while the pointer is in the figure window, but not over a child object such as a uicontrol, uipanel, axes, or axes child.
-% 
-% See the figure's SelectionType property to determine whether modifier keys are also pressed.
-
-%look up figure properties on how to control the position of the mouse
 
 % Update handles structure
 guidata(hObject, handles);
@@ -160,17 +143,6 @@ function simulation_DeleteFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-Massstr = sprintf('in kilograms');
-set(handles.mass,'TooltipString',Massstr)
-
-
-Velostr = sprintf('in meters per second');
-set(handles.velocity,'TooltipString',Velostr)
-
-
-Positionstr = sprintf('in meters');
-set(handles.position,'TooltipString',Positionstr)
-
 % --- Executes on button press in Startbutton.
 function Startbutton_Callback(hObject, eventdata, handles)
 % hObject    handle to Startbutton (see GCBO)
@@ -182,14 +154,7 @@ handles.simulation;
 global ENDING 
 ENDING = 0;
 
-%[x, y] = getpts(fig)
-% I am not sure where we have to put the code that will get the position of
-% the objects but we need to figure that out
-% Also, we need to make it so that you can draw an arrow to determine
-% direction and speed of the object
-global mass
-global velocity
-global location
+
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
