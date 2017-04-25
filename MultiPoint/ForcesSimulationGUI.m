@@ -24,7 +24,7 @@ function varargout = ForcesSimulationGUI(varargin)
 
 % Edit the above text to modify the response to help ForcesSimulationGUI
 
-% Last Modified by GUIDE v2.5 21-Apr-2017 12:35:49
+% Last Modified by GUIDE v2.5 24-Apr-2017 22:23:38
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -152,6 +152,7 @@ function Startbutton_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of Startbutton
 handles.simulation;
 global ENDING 
+global container 
 ENDING = 0;
 
 
@@ -169,8 +170,9 @@ for P = 1:length(Networks)
     Networks(P) = setUpNetwork(Networks(P));
 end
 
-Networks = simulate(Networks,{},{},0.01,Inf,{},handles.simulation);
+container = simulate(Networks,{},{},0.01,Inf,{},handles.simulation);
 disp('simulation complete');
+
 
 set(handles.Startbutton,'Enable','on');
 
@@ -542,3 +544,20 @@ if Status == 1
     set(gcf,'Units','normalized');
     set (gcf, 'WindowButtonDownFcn', {@mousePosition,mass});
 end
+
+
+% --- Executes on button press in togglebutton4.
+function togglebutton4_Callback(hObject, eventdata, handles)
+% hObject    handle to togglebutton4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of togglebutton4
+Contb = get(handles.togglebutton4,'Value');
+
+global container 
+if Contb == 1
+container = simulate(container,{},{},0.01,Inf,{},handles.simulation);
+end
+
+set(handles.togglebutton4,'value',0);
