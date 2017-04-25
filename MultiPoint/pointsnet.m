@@ -1,23 +1,18 @@
 function Networks = pointsnet(varargin)
-
-
 n = nargin;
 location =  varargin{1};
 if n == 2
     velocity = varargin{2};
 else
     velocity = varargin{2};
-    mass = varargin{3};
-    
-    
-    
-    if length(mass) == 2
+    mass = varargin{3};  
+if length(mass) == 2
         netNum = 2;
-    elseif length(mass) == 1
+elseif length(mass) == 1
         netNum = 1;
-    else
+else
         netNum = 3;
-    end
+end
     pntNum = 8;
     
     Networks(netNum) = NETWORK;
