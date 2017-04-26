@@ -2,6 +2,14 @@
 function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time,options,axisJ)
 global ENDING; % sets global variable for the pause button called ENDING
 global TICKTIME % sets global variable to allow the simulation to be slowed down and sped up
+
+UPPERBOUND = 40;
+LOWERBOUND = 0;
+LEFTBOUND =  0;
+RIGHTBOUND = 40;
+
+
+
 eTime = 0;
 disp('simulation start');
 while eTime < time
@@ -12,13 +20,19 @@ while eTime < time
             Networks(N).pnts(N).forc = [0 0];
         end
         for F = 1:length(pntForceFuncs)
-            Networks = genericForceApplication(Networks(N),Networks,pntForceFuncs(F));
+            Networks(N) = genericForceApplication(Networks(N),Networks,pntForceFuncs{F});
         end
         for F = 1:length(netwForceFuncs)
             Networks(N) = netwForceFuncs{F}(Networks(N));
         end
         Networks(N) = moveNet(Networks(N),interval); %moves the networks
         Networks(N) = rotateNet(Networks(N),interval); %rotates the networks if torque is being applied
+        if Networks(N).loca(1) > RIGHTBOUND || Networks(N).loca(1) < LEFTBOUND
+            Networks(N).velo(1) = -1*Networks(N).velo(1);
+        end
+        if Networks(N).loca(2) > UPPERBOUND || Networks(N).loca(2) < LOWERBOUND
+            Networks(N).velo(2) = -1*Networks(N).velo(2);
+        end
     end
     if length(Networks) ~= 1
         combos = nchoosek(1:length(Networks),2); % tests al of the combinations of the vertices to check if a collision is happening

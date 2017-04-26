@@ -24,7 +24,7 @@ function varargout = ForcesSimulationGUI(varargin)
 
 % Edit the above text to modify the response to help ForcesSimulationGUI
 
-% Last Modified by GUIDE v2.5 24-Apr-2017 22:23:38
+% Last Modified by GUIDE v2.5 25-Apr-2017 18:49:33
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -170,7 +170,12 @@ for P = 1:length(Networks)
     Networks(P) = setUpNetwork(Networks(P));
 end
 
-container = simulate(Networks,{},{},0.01,Inf,{},handles.simulation);
+pntForcFunc = {};
+if handles.checkbox1.Value 
+    pntForcFunc = {@gravity};
+end
+
+container = simulate(Networks,pntForcFunc,{},0.01,Inf,{},handles.simulation);
 disp('simulation complete');
 
 
@@ -522,7 +527,7 @@ function checkbox2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox2
-
+disp('STUFF')
 
 % --- Executes on button press in radiobutton2.
 function radiobutton2_Callback(hObject, eventdata, handles)
@@ -563,3 +568,13 @@ container = simulate(container,{},{},0.01,Inf,{},handles.simulation);
 end
 
 set(handles.togglebutton4,'value',0);
+
+
+% --- Executes on key press with focus on radiobutton2 and none of its controls.
+function radiobutton2_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to radiobutton2 (see GCBO)
+% eventdata  structure with the following fields (see MATLAB.UI.CONTROL.UICONTROL)
+%	Key: name of the key that was pressed, in lower case
+%	Character: character interpretation of the key(s) that was pressed
+%	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
+% handles    structure with handles and user data (see GUIDATA)
