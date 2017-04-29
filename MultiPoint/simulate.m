@@ -3,10 +3,10 @@ function Networks = simulate(Networks,pntForceFuncs,netwForceFuncs,interval,time
 global ENDING; % sets global variable for the pause button called ENDING
 global TICKTIME % sets global variable to allow the simulation to be slowed down and sped up
 
-UPPERBOUND = 40;
-LOWERBOUND = 0;
-LEFTBOUND =  0;
-RIGHTBOUND = 40;
+UPPERBOUND = 40-1;
+LOWERBOUND = 0+1;
+LEFTBOUND =  0+1;
+RIGHTBOUND = 40-1;
 
 
 
