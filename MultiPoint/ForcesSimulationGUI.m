@@ -72,10 +72,10 @@ Speedvalue = set(handles.speedslider,'Value',50);
 
 global clickcounter
 clickcounter = 0;
+global mass
+global location
+global velocity 
 
-mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
-velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
-location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
 
 
 % Update handles structure
@@ -152,15 +152,28 @@ function Startbutton_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of Startbutton
 handles.simulation;
 global ENDING 
+global clickcounter
+global bin
 global container 
+global mass
+global location
+global velocity 
 ENDING = 0;
 
+if length(mass) == 0
 
 mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,'String'));str2num(get(handles.object3mass,'String'))];
 velocity = [str2num(get(handles.velocityobj1,'String'));str2num(get(handles.velocityobj2,'String'));str2num(get(handles.object3velo,'String'))]; 
 location = [str2num(get(handles.Positionobj1,'String'));str2num(get(handles.Positionobj2,'String'));str2num(get(handles.object3pos,'String'))];
 
+end
+
 set(handles.Startbutton,'Enable','off');
+
+for c = clickcounter:-1:1
+    set( bin(c), 'Visible', 'off')
+end
+clickcounter = 0;
 
 
 %create the structures to plot 
@@ -547,7 +560,7 @@ mass = [str2num(get(handles.massobject1,'String'));str2num(get(handles.massobj2,
 pause(.001)
 if Status == 1
     set(gcf,'Units','normalized');
-    set (gcf, 'WindowButtonDownFcn', {@mousePosition,mass});
+    set (gcf, 'WindowButtonDownFcn', {@mousePosition});
 end
 
 
